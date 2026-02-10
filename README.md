@@ -18,8 +18,10 @@ For the further development of the project we will use feature branches. We will
 ## Setup and Usage
 Project requires Python 3.13.
 ### Setup
+```bash
 python -m venv venv 
 source venv/Scripts/activate
 pip install -r requirements.txt
+```
 ## Notes
 On Windows, Python requires Tcl/Tk support enabled. 
