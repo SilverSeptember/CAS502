@@ -15,3 +15,11 @@ Mutually understood goal to continue working towards full program functionality 
 ## Git branching
 All team members have committed to a single branch thus far.
 For the further development of the project we will use feature branches. We will each develop locally on feature branches for our assigned features. When the feature coding is completed, we will open pull requests (PRs). When each PR is tested and approved, it will be merged with the main branch. 
+## Setup and Usage
+Project requires Python 3.13.
+### Setup
+python -m venv venv 
+source venv/Scripts/activate
+pip install -r requirements.txt
+## Notes
+On Windows, Python requires Tcl/Tk support enabled. 
