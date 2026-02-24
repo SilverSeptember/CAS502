@@ -5,11 +5,9 @@
 # 
 # Time unit: **weeks**. This notebook reproduces SIR, extends to SIRS (waning + vaccination), and then adds **vital dynamics, disease mortality, seasonal forcing, and migration/importation**. Parameters are set to measles-like values.
 # 
-# **How to use**: Run top-to-bottom. Use the *Parameters* cell to tweak scenarios. Figures are shown inline; you can also save images by uncommenting `savefig(...)` lines.
 
 # ## 1. Imports & helpers
 
-# In[1]:
 
 
 import numpy as np
@@ -22,7 +20,6 @@ def savefig(path):
 
 # ## 2. Transmission β(t) with seasonality
 
-# In[2]:
 
 
 def beta_t(t, beta0, seasonal_amp=0.0, seasonal_T=52.0):
@@ -43,7 +40,6 @@ def beta_t_termtime(t, beta0, b1=0.25, T=52.0, term_weeks=39.0):
 
 # ## 3. Models (proportions and counts)
 
-# In[3]:
 
 
 def sir_rhs(y, t, beta0, gamma):
@@ -89,8 +85,6 @@ def sirs_rhs_migration(y, t,
 
 # ## 4. Parameters (Measles-like, weeks)
 
-# In[23]:
-
 
 # Time grid (weeks)
 t_max = 520  # 10 years
@@ -132,8 +126,6 @@ print(f"R0 target: {R0_target:.1f} → beta0={beta0:.2f}, gamma={gamma:.2f}")
 
 # ## 5. Baselines: SIR and SIRS (proportions)
 
-# In[24]:
-
 
 S0p, I0p, R0p = 0.99, 0.01, 0.0
 sol_sir = odeint(sir_rhs, [S0p, I0p, R0p], t, args=(beta0, gamma))
@@ -145,9 +137,6 @@ plt.xlabel('Weeks'); plt.ylabel('Proportion infected'); plt.title('I(t): SIR vs 
 
 
 # ## 6. Expanded model (counts): demography + mortality + coverage + seasonality + importation
-
-# In[25]:
-
 
 y0c = [S0c, I0c, R0c]
 sol_ext = odeint(
@@ -174,7 +163,6 @@ plt.title('Infected count with demography, mortality, importation'); plt.legend(
 
 # ## 7. Vaccination coverage sweep (peak I vs coverage)
 
-# In[26]:
 
 
 coverages = np.linspace(0.80, 0.98, 10)
@@ -191,9 +179,6 @@ plt.title('Peak infection vs vaccination coverage'); plt.show()
 
 
 # ## 8. Inline summary
-
-# In[27]:
-
 
 peak_I = float(np.max(I_c))
 t_peak = float(t[np.argmax(I_c)])
