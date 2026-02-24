@@ -3,12 +3,15 @@
 
 # # Epidemiology Final — Measles (SIR → SIRS → SIRS + Migration)
 # 
-# Time unit: **weeks**. This notebook reproduces SIR, extends to SIRS (waning + vaccination), and then adds **vital dynamics, disease mortality, seasonal forcing, and migration/importation**. Parameters are set to measles-like values.
+# Time unit: **weeks**. 
+# Used because of seasonal school schedules. 
+# This converted notebook reproduces SIR, extends to SIRS (waning + vaccination), and then adds **vital dynamics, disease mortality, seasonal forcing, and migration/importation**. Parameters are set to measles-like values.
 # 
 
 # ## 1. Imports & helpers
 
-
+# numpy and scipy are required for the mathematical model
+# matplotlib and savefig(path) allow consisten formating and reproducibility of figures
 
 import numpy as np
 from scipy.integrate import odeint
@@ -20,7 +23,8 @@ def savefig(path):
 
 # ## 2. Transmission β(t) with seasonality
 
-
+# Sinusoidal seasonality used due to school cycles, bringing previously unexposed populations 
+# into contact with infectious ones at predictable times. 
 
 def beta_t(t, beta0, seasonal_amp=0.0, seasonal_T=52.0):
     """Sinusoidal seasonality: beta(t) = beta0 * (1 + a * sin(2π t / T))."""
@@ -42,14 +46,16 @@ def beta_t_termtime(t, beta0, b1=0.25, T=52.0, term_weeks=39.0):
 
 
 
-def sir_rhs(y, t, beta0, gamma):
+def sir_rhs(y, t, beta0, gamma): # Simplest baseline used for comparison and validaton
     S, I, R = y
     dSdt = -beta0 * S * I
     dIdt =  beta0 * S * I - gamma * I
     dRdt =  gamma * I
     return [dSdt, dIdt, dRdt]
 
-def sirs_rhs(y, t, beta0, gamma, lam, nu=0.0, seasonal_amp=0.0, seasonal_T=52.0):
+def sirs_rhs(y, t, beta0, gamma, lam, nu=0.0, seasonal_amp=0.0, seasonal_T=52.0): 
+    # Waning immunity, vaccinatiion and seasonality parameters more closely model real
+    # life observations
     S, I, R = y
     b = beta_t(t, beta0, seasonal_amp, seasonal_T)
     dSdt = -b * S * I - nu * S + lam * R
