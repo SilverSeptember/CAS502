@@ -1,6 +1,7 @@
-# CAS502
-# Spring 2026
-## John Moore, Nicole Silvers
+# CAS502 - Spring 2026
+## Team
+John Moore, Nicole Silvers
+# Project Overview
 ## Description
 Course project for CAS 502. A Measles Model will be transferred 
 from Jupyter Notebooks to Python so a GUI and further 
@@ -34,6 +35,11 @@ python -m venv venv
 source venv/Scripts/activate
 pip install -r requirements.txt
 ```
+### Usage
+1. Clone [repository](https://github.com/SilverSeptember/CAS502)
+2. Create virtual environment
+3. Install dependencies
+4. Run the main simulation script
 ## Notes
 On Windows, Python requires Tcl/Tk support enabled. If Tcl/Tk 
 unavailable or not working properly utilize the following:
@@ -41,3 +47,4 @@ unavailable or not working properly utilize the following:
 MPLBACKEND=Agg python Epidemiology_Final_with_Migration_Final.py
 ```
 Figures will not output in current configuration. 
+
