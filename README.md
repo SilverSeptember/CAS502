@@ -6,9 +6,16 @@ Nicole Silvers, John Moore
 # Project Overview
 
 ## Description
-Course project for CAS 502. A Measles Model port
-from a Jupyter Notebook to Python with a GUI and further 
-functionality will be integrated.
+Project implements a measles epidemic model. Reconfigured from a 
+Jupyter Notebook into a structured Python package Course project
+with:
+ - Tkinter based GUI
+ - Editable epidemiological parameters
+ - Independent X-axis control
+ - Script based execution for reproducibility
+ - Automated testing through pytest
+ - Version pinned dependencies 
+
 
 ## Challenges
 Proficiency using Git and GitHub, which is new to one of us and 
@@ -36,10 +43,17 @@ approved, it will be merged with the main branch.
 
 ## Installation
 
-### Requirements
+### System Requirements
 - Python 3.13
 - pip
-- Tkinter (note: Tkinter is usually bundled with Python on macOS and Windows. On some Linux distros, it isn't included by default and has to be installed separately via the package manager. For example, on Ubuntu this may be required to include it for this app: sudo apt install python3-tk .)
+- Tkinter 
+
+Note: Tkinter is usually bundled with Python on macOS and Windows. On some Linux distros, it isn't included by default and has to be installed separately via the package manager.
+Example: Ubuntu may require: 
+```bash
+sudo apt install python3-tk 
+```
+
 
 ### Setup
 ```bash
@@ -48,6 +62,13 @@ source venv/bin/activate        # macOS / Linux
 # venv\Scripts\activate         # Windows
 pip install -r requirements.txt
 ```
+
+### Dependencies
+numpy==2.4.*
+scipy==1.17.*
+matplotlib==3.10.*
+pytest==9.*
+
 
 ## Usage
 1. Clone [repository](https://github.com/SilverSeptember/CAS502)
