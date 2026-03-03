@@ -168,17 +168,17 @@ class MeaslesGUI(tk.Tk):
 
 
         #Right: the narrative text
-        narr_frame = ttk.Frame(paned)
-        ttk.Label(narr_frame, text="Model Narrative", font=("TkDefaultFont", 12, "bold")).pack(
+        narrative_frame = ttk.Frame(paned)
+        ttk.Label(narrative_frame, text="Model Narrative", font=("TkDefaultFont", 12, "bold")).pack(
             anchor=tk.W, padx=5, pady=(5, 0)
         )
-        self._narrative = tk.Text(narr_frame, wrap=tk.WORD, width=40, state=tk.DISABLED)
-        scrollbar = ttk.Scrollbar(narr_frame, orient=tk.VERTICAL, command=self._narrative.yview)
+        self._narrative = tk.Text(narrative_frame, wrap=tk.WORD, width=40, state=tk.DISABLED)
+        scrollbar = ttk.Scrollbar(narrative_frame, orient=tk.VERTICAL, command=self._narrative.yview)
         self._narrative.configure(yscrollcommand=scrollbar.set)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self._narrative.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
-        paned.add(narr_frame, stretch="never")
+        paned.add(narrative_frame, stretch="never")
 
     # actions
 
@@ -190,7 +190,7 @@ class MeaslesGUI(tk.Tk):
         self.update_idletasks()
         try:
             try: # Validate GUI inputs
-                r0 = float(self.r0_var.get())
+                r0_input = float(self.r0_var.get())
                 gamma = float(self.gamma_var.get())
                 mu = float(self.mu_var.get())
                 nu = float(self.nu_var.get())
@@ -198,7 +198,7 @@ class MeaslesGUI(tk.Tk):
                 messagebox.showerror("Invalid Input", "All parameter fields must be numeric")
                 return
             
-            if r0 <= 0:
+            if r0_input <= 0:
                 messagebox.showerror("Invalid Input", "R0 must be greater than 0.")
                 return
             if gamma <= 0:
@@ -211,7 +211,7 @@ class MeaslesGUI(tk.Tk):
                 messagebox.showerror("Invalid input", "Nu must be greater than or equal to 0.")
                 return
             
-            self._params.R0_target = r0
+            self._params.R0_target = r0_input
             self._params.gamma = gamma
             self._params.mu = mu
             self._params.nu = nu
@@ -240,61 +240,61 @@ class MeaslesGUI(tk.Tk):
         self._plot_coverage_sweep()  # x-axis is coverage, not time
 
     def _plot_sir_vs_sirs(self, x_max=None):
-        r = self._results
-        fig = self._figures["sir_vs_sirs"]
-        fig.clear()
-        ax = fig.add_subplot(111)
-        ax.plot(r.t, r.sol_sir[:, 1], label="I (SIR)")
-        ax.plot(r.t, r.sol_sirs[:, 1], label="I (SIRS, seasonal)")
-        ax.set_xlabel("Weeks")
-        ax.set_ylabel("Proportion infected")
-        ax.set_title("I(t): SIR vs SIRS")
-        ax.legend()
+        results = self._results
+        figure = self._figures["sir_vs_sirs"]
+        figure.clear()
+        axis = figure.add_subplot(111)
+        axis.plot(results.t, results.sol_sir[:, 1], label="I (SIR)")
+        axis.plot(results.t, results.sol_sirs[:, 1], label="I (SIRS, seasonal)")
+        axis.set_xlabel("Weeks")
+        axis.set_ylabel("Proportion infected")
+        axis.set_title("I(t): SIR vs SIRS")
+        axis.legend()
         if x_max is not None:
-            ax.set_xlim(0, x_max)
-        fig.tight_layout()
+            axis.set_xlim(0, x_max)
+        figure.tight_layout()
         self._canvases["sir_vs_sirs"].draw()
 
     def _plot_sirs_proportion(self, x_max=None):
-        r = self._results
-        fig = self._figures["sirs_proportion"]
-        fig.clear()
-        ax = fig.add_subplot(111)
-        ax.plot(r.t, r.Ip, label="I/N")
-        ax.set_xlabel("Weeks")
-        ax.set_ylabel("Proportion infected")
-        ax.set_title("Expanded SIRS — measles-like seasonality & coverage")
-        ax.legend()
+        results = self._results
+        figure = self._figures["sirs_proportion"]
+        figure.clear()
+        axis = figure.add_subplot(111)
+        axis.plot(results.t, results.Ip, label="I/N")
+        axis.set_xlabel("Weeks")
+        axis.set_ylabel("Proportion infected")
+        axis.set_title("Expanded SIRS — measles-like seasonality & coverage")
+        axis.legend()
         if x_max is not None:
-            ax.set_xlim(0, x_max)
-        fig.tight_layout()
+            axis.set_xlim(0, x_max)
+        figure.tight_layout()
         self._canvases["sirs_proportion"].draw()
 
     def _plot_infected_count(self, x_max=None):
-        r = self._results
-        fig = self._figures["infected_count"]
-        fig.clear()
-        ax = fig.add_subplot(111)
-        ax.plot(r.t, r.I_c, label="Infected (count)")
-        ax.set_xlabel("Weeks")
-        ax.set_ylabel("Individuals")
-        ax.set_title("Infected count with demography, mortality, importation")
-        ax.legend()
+        results = self._results
+        figure = self._figures["infected_count"]
+        figure.clear()
+        axis = figure.add_subplot(111)
+        axis.plot(results.t, results.I_c, label="Infected (count)")
+        axis.set_xlabel("Weeks")
+        axis.set_ylabel("Individuals")
+        axis.set_title("Infected count with demography, mortality, importation")
+        axis.legend()
         if x_max is not None:
-            ax.set_xlim(0, x_max)
-        fig.tight_layout()
+            axis.set_xlim(0, x_max)
+        figure.tight_layout()
         self._canvases["infected_count"].draw()
 
     def _plot_coverage_sweep(self):
-        r = self._results
-        fig = self._figures["coverage_sweep"]
-        fig.clear()
-        ax = fig.add_subplot(111)
-        ax.plot(r.coverages, r.peaks, marker="o")
-        ax.set_xlabel("Coverage (vaccinated at birth)")
-        ax.set_ylabel("Peak I (approx, normalized)")
-        ax.set_title("Peak infection vs vaccination coverage")
-        fig.tight_layout()
+        results = self._results
+        figure = self._figures["coverage_sweep"]
+        figure.clear()
+        axis = figure.add_subplot(111)
+        axis.plot(results.coverages, results.peaks, marker="o")
+        axis.set_xlabel("Coverage (vaccinated at birth)")
+        axis.set_ylabel("Peak I (approx, normalized)")
+        axis.set_title("Peak infection vs vaccination coverage")
+        figure.tight_layout()
         self._canvases["coverage_sweep"].draw()
 
     #narrative
