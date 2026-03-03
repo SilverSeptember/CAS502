@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "CAS502 Measles Model with Migration (GUI-enabled Python Implementation)"
+type: software
+authors:
+  - family-names: "Silvers"
+    given-names: "Nicole"
+  - family-names: "Moore"
+    given-names: "John"
+repository-code: "https://github.com/SilverSeptember/CAS502"
+url: "https://github.com/SilverSeptember/CAS502"
+license: "MIT"
+version: "0.1.0"
+date-released: "2026-03-02"
+abstract: "A Python implementation of a measles SIR model with migration, refactored from Jupyter notebooks into a structured package with GUI-based parameter editing and reproducible test coverage."
+keywords:
+  - epidemiology
+  - measles
+  - SIR
+  - migration
+  - simulation
+  - GUI
