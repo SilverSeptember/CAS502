@@ -39,7 +39,7 @@ approved, it will be merged with the main branch.
 ### Requirements
 - Python 3.13
 - pip
-- Tkinter 
+- Tkinter (note: Tkinter is usually bundled with Python on macOS and Windows. On some Linux distros, it isn't included by default and has to be installed separately via the package manager. For example, on Ubuntu this may be required to include it for this app: sudo apt install python3-tk .)
 
 ### Setup
 ```bash
