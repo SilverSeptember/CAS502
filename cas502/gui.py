@@ -113,6 +113,25 @@ class MeaslesGUI(tk.Tk):
         self._run_btn = ttk.Button(toolbar, text="Run Simulation", command=self._on_run)
         self._run_btn.pack(side=tk.LEFT, padx=(0, 20))
 
+        # GUI editable parameters
+        self.r0_var = tk.StringVar(value=str(self._params.R0_target))
+        self.gamma_var = tk.StringVar(value=str(self._params.gamma))
+        self.mu_var = tk.StringVar(value=str(self._params.mu))
+        self.nu_var = tk.StringVar(value=str(self._params.nu))
+        self.tmax_var = tk.StringVar(value=str(self._params.t_max))
+
+        ttk.Label(toolbar, text="R0:").pack(side=tk.LEFT)
+        ttk.Entry(toolbar, textvariable=self.r0_var, width=6).pack(side=tk.LEFT, padx=(2, 10))
+
+        ttk.Label(toolbar, text="gamma (/wk):").pack(side=tk.LEFT)
+        ttk.Entry(toolbar, textvariable=self.gamma_var, width=8).pack(side=tk.LEFT, padx=(2, 10))
+
+        ttk.Label(toolbar, text="mu (/wk):").pack(side=tk.LEFT)
+        ttk.Entry(toolbar, textvariable=self.mu_var, width=12).pack(side=tk.LEFT, padx=(2, 10))
+
+        ttk.Label(toolbar, text="nu (/wk):").pack(side=tk.LEFT)
+        ttk.Entry(toolbar, textvariable=self.nu_var, width=8).pack(side=tk.LEFT, padx=(2, 10))
+
         ttk.Label(toolbar, text="X-axis max (weeks):").pack(side=tk.LEFT)
         self._xmax_var = tk.StringVar(value="520")
         self._xmax_entry = ttk.Entry(toolbar, textvariable=self._xmax_var, width=8)
@@ -164,9 +183,39 @@ class MeaslesGUI(tk.Tk):
     # actions
 
     def _on_run(self):
+
+        from tkinter import messagebox
+
         self._run_btn.configure(state=tk.DISABLED)
         self.update_idletasks()
         try:
+            try: # Validate GUI inputs
+                r0 = float(self.r0_var.get())
+                gamma = float(self.gamma_var.get())
+                mu = float(self.mu_var.get())
+                nu = float(self.nu_var.get())
+            except ValueError:
+                messagebox.showerror("Invalid Input", "All parameter fields must be numeric")
+                return
+            
+            if r0 <= 0:
+                messagebox.showerror("Invalid Input", "R0 must be greater than 0.")
+                return
+            if gamma <= 0:
+                messagebox.showerror("Invalid input", "Gamma must be greater than 0.")
+                return
+            if mu < 0:
+                messagebox.showerror("Invalid input", "Mu must be greater than or equal to 0.")
+                return
+            if nu < 0: 
+                messagebox.showerror("Invalid input", "Nu must be greater than or equal to 0.")
+                return
+            
+            self._params.R0_target = r0
+            self._params.gamma = gamma
+            self._params.mu = mu
+            self._params.nu = nu
+
             self._results = run_simulation(self._params)
             self._draw_all_plots()
             self._update_narrative()
