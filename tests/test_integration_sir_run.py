@@ -60,8 +60,8 @@ class TestExtendedSIRS:
         assert 0 <= simulation_results.t_peak <= simulation_results.t[-1]
 
     def test_final_proportions_sum_to_one(self, simulation_results):
-        r = simulation_results
-        total = r.Sp[-1] + r.Ip[-1] + r.Rp[-1]
+        results = simulation_results
+        total = results.Sp[-1] + results.Ip[-1] + results.Rp[-1]
         assert abs(total - 1.0) < 1e-6
 
 
