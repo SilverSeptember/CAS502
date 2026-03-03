@@ -13,7 +13,8 @@ def beta_t(t, beta0, seasonal_amp = 0.0, seasonal_T = 52.0):
 		return beta0
 	return beta0 * (1.0 + seasonal_amp * np.sin(2.0 * np.pi * t / seasonal_T))
 # fmt: on
-  
+
+
 def beta_t_termtime(t, beta0, b1=0.25, T=52.0, term_weeks=39.0):
     """Term-time (school) forcing with mean-preserving high/low segments.
     In the term weeks the transmision rate is boosted; outside the term it's reduced so that the time-average equals *beta0*.

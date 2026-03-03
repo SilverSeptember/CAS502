@@ -163,9 +163,7 @@ class MeaslesGUI(tk.Tk):
             self._figures[key] = fig
             self._canvases[key] = canvas
 
-
         paned.add(self._notebook, stretch="always")
-
 
         #Right: the narrative text
         narrative_frame = ttk.Frame(paned)
@@ -183,7 +181,6 @@ class MeaslesGUI(tk.Tk):
     # actions
 
     def _on_run(self):
-
         from tkinter import messagebox
 
         self._run_btn.configure(state=tk.DISABLED)
