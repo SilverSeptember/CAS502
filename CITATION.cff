@@ -2,6 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "CAS502 Measles Model with Migration (GUI-enabled Python Implementation)"
 type: software
+doi: "10.5281/zenodo.18856455"
 authors:
   - family-names: "Silvers"
     given-names: "Nicole"
