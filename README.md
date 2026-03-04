@@ -135,8 +135,8 @@ Zenodo DOI: 10.5281/zenodo.18856455
 If you encounter a bug or would like to request a new feature, please open an Issue on this repository.
 Please include:
 1. A clear description of the issue
-2. Steps to reproduce the problem
-3. Expected behavior
+2. If it is a bug, the steps to reproduce the problem
+3. Expected or desired behavior
 4. Your operating system and Python version
 
 ## Contributions
