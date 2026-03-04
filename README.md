@@ -26,6 +26,7 @@ The model progresses through three levels of complexity: a basic SIR (Susceptibl
 - Tkinter
 
 Note: Tkinter is usually bundled with Python on macOS and Windows. On some Linux distros, it isn't included by default and has to be installed separately via the package manager.
+
 Example: Ubuntu may require:
 ```bash
 sudo apt install python3-tk
@@ -128,7 +129,7 @@ collaborative nature of this project.
 ## Citation
 This repository includes a `CITATION.cff` for software citation metadata.
 
-A Zenodo DOI will be generated upon official release.
+Zenodo DOI: 10.5281/zenodo.18856455
 
 ## Bug Reports & Feature Requests
 If you encounter a bug or would like to request a new feature, please open an Issue on this repository.
